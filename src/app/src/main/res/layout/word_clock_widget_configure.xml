@@ -96,39 +96,47 @@
                 <TableRow>
 
                     <ImageView
+                        android:id="@+id/imageBackground1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".25"
                         android:src="@drawable/background_1"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
+                        android:tag="1"
                         android:padding="2dp" />
 
                     <ImageView
+                        android:id="@+id/imageBackground2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".25"
                         android:src="@drawable/background_2"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
+                        android:tag="2"
                         android:padding="2dp" />
 
                     <ImageView
+                        android:id="@+id/imageBackground3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".25"
                         android:src="@drawable/background_3"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
+                        android:tag="3"
                         android:padding="2dp" />
 
                     <ImageView
+                        android:id="@+id/imageBackground4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".25"
                         android:src="@drawable/background_4"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
+                        android:tag="4"
                         android:padding="2dp" />
 
                 </TableRow>
@@ -136,39 +144,47 @@
                 <TableRow>
 
                     <ImageView
+                        android:id="@+id/imageBackground5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".25"
                         android:src="@drawable/background_5"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
+                        android:tag="5"
                         android:padding="2dp" />
 
                     <ImageView
+                        android:id="@+id/imageBackground6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".25"
                         android:src="@drawable/background_6"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
+                        android:tag="6"
                         android:padding="2dp" />
 
                     <ImageView
+                        android:id="@+id/imageBackground7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".25"
-                        android:src="@drawable/background_1"
+                        android:src="@drawable/background_7"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
+                        android:tag="7"
                         android:padding="2dp" />
 
                     <ImageView
+                        android:id="@+id/imageBackground8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".25"
-                        android:src="@drawable/background_2"
+                        android:src="@drawable/background_8"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
+                        android:tag="8"
                         android:padding="2dp" />
 
                 </TableRow>

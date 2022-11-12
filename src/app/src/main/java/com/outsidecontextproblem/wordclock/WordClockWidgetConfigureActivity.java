@@ -136,6 +136,30 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
         clockElementConfigurator = findViewById(R.id.backgroundText);
         clockElementConfigurator.setOnClockElementConfiguratorChangeListener(_elementListener);
 
+        ImageView backgroundImage = findViewById(R.id.imageBackground1);
+        backgroundImage.setOnClickListener(this::onBackgroundSelected);
+
+        backgroundImage = findViewById(R.id.imageBackground2);
+        backgroundImage.setOnClickListener(this::onBackgroundSelected);
+
+        backgroundImage = findViewById(R.id.imageBackground3);
+        backgroundImage.setOnClickListener(this::onBackgroundSelected);
+
+        backgroundImage = findViewById(R.id.imageBackground4);
+        backgroundImage.setOnClickListener(this::onBackgroundSelected);
+
+        backgroundImage = findViewById(R.id.imageBackground5);
+        backgroundImage.setOnClickListener(this::onBackgroundSelected);
+
+        backgroundImage = findViewById(R.id.imageBackground6);
+        backgroundImage.setOnClickListener(this::onBackgroundSelected);
+
+        backgroundImage = findViewById(R.id.imageBackground7);
+        backgroundImage.setOnClickListener(this::onBackgroundSelected);
+
+        backgroundImage = findViewById(R.id.imageBackground8);
+        backgroundImage.setOnClickListener(this::onBackgroundSelected);
+
         updatePreview();
 
         _handler.postDelayed(this, 1_000);
@@ -146,6 +170,12 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
         updatePreview();
 
         _handler.postDelayed(this, 1_000);
+    }
+
+    private void onBackgroundSelected(View background) {
+        String tag = (String) background.getTag();
+
+        long resourceId = getApplicationContext().getResources().getIdentifier(String.format("background_%s", tag), "drawable", getApplicationContext().getPackageName());
     }
 
     private void onElementChanged() {

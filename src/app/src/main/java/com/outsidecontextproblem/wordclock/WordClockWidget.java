@@ -29,6 +29,9 @@ public class WordClockWidget extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
+        if (WordClockWidgetRenderer._typeface == null) {
+            WordClockWidgetRenderer._typeface = context.getResources().getFont(R.font.roboto);
+        }
     }
 
     @Override

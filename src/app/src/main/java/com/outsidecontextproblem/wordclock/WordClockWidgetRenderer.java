@@ -73,6 +73,15 @@ public class WordClockWidgetRenderer {
         return bitmap;
     }
 
+    public void updateFromSettings(Settings settings) {
+        updatePaint(_backgroundTextPaint, settings.getBackgroundSettings());
+        updatePaint(_foregroundTextPaint, settings.getForegroundSettings());
+    }
+
+    private void updatePaint(Paint paint, ElementSettings settings) {
+        paint.setARGB(settings.getOpacity() * 5, settings.getRed() * 5, settings.getGreen() * 5, settings.getBlue() * 5);
+    }
+
     private void renderText(Bitmap drawable, Canvas canvas) {
         int midX = drawable.getWidth() / 2;
         int height = drawable.getHeight();

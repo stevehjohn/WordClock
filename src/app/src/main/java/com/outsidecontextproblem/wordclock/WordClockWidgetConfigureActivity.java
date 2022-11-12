@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,13 +23,15 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-public class WordClockWidgetConfigureActivity extends Activity {
+public class WordClockWidgetConfigureActivity extends Activity implements Runnable {
 
     @SuppressWarnings("FieldCanBeLocal")
     private WordClockWidgetConfigureBinding _binding;
 
     public WordClockWidgetConfigureActivity() {
         super();
+
+        _renderer = new WordClockWidgetRenderer();
     }
 
     int _appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -37,6 +40,10 @@ public class WordClockWidgetConfigureActivity extends Activity {
 
     @SuppressWarnings("FieldCanBeLocal")
     private ClockElementConfigurator.OnClockElementConfiguratorChangeListener _elementListener;
+
+    private final WordClockWidgetRenderer _renderer;
+
+    private final Handler _handler = new Handler();
 
     private final View.OnClickListener _addOnClickListener = view -> {
         final Context context = WordClockWidgetConfigureActivity.this;
@@ -85,6 +92,10 @@ public class WordClockWidgetConfigureActivity extends Activity {
             WordClockWidgetRenderer._typeface = context.getResources().getFont(R.font.roboto);
         }
 
+        if (WordClockWidgetRenderer._typeface == null) {
+            WordClockWidgetRenderer._typeface = context.getResources().getFont(R.font.roboto);
+        }
+
         _settings = new Settings(_appWidgetId);
 
         WordClockWidgetService serviceInstance = WordClockWidgetService.getInstance();
@@ -110,6 +121,17 @@ public class WordClockWidgetConfigureActivity extends Activity {
 
         clockElementConfigurator = findViewById(R.id.backgroundText);
         clockElementConfigurator.setOnClockElementConfiguratorChangeListener(_elementListener);
+
+        updatePreview();
+
+        _handler.postDelayed(this, 1_000);
+    }
+
+    @Override
+    public void run() {
+        updatePreview();
+
+        _handler.postDelayed(this, 1_000);
     }
 
     private void onElementChanged() {
@@ -119,7 +141,7 @@ public class WordClockWidgetConfigureActivity extends Activity {
     }
 
     private void updatePaints() {
-        //_batteryClockRenderer.updateFromSettings(_settings);
+        _renderer.updateFromSettings(_settings);
 
         ClockElementConfigurator configurator = findViewById(R.id.litText);
         updateSettings(_settings.getForegroundSettings(), configurator);
@@ -168,7 +190,7 @@ public class WordClockWidgetConfigureActivity extends Activity {
         configurator.setGreen(settings.getGreen());
         configurator.setBlue(settings.getBlue());
 
-        //_batteryClockRenderer.updateFromSettings(_settings);
+        _renderer.updateFromSettings(_settings);
     }
 
     private void configureTimezones(Context context) {
@@ -235,25 +257,11 @@ public class WordClockWidgetConfigureActivity extends Activity {
     }
 
     private void updatePreview() {
-//        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(_settings.getTimeZone()));
-//
-//        int second = -1;
-//        if (Settings.getUpdateSeconds()) {
-//            second = calendar.get(Calendar.SECOND);
-//        }
-//
-//        int minute = calendar.get(Calendar.MINUTE);
-//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//        int dayOfWeek = (((calendar.get(Calendar.DAY_OF_WEEK) - 2) + 7) % 7);
-//
-//        BatteryManager batteryManager = (BatteryManager) getApplicationContext().getSystemService(Context.BATTERY_SERVICE);
-//        int level = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-//
-//        Bitmap bitmap = _batteryClockRenderer.render(level, hour, minute, second, dayOfWeek, _settings.getLabel());
-//
-//        ImageView imageView = findViewById(R.id.imageClock);
-//
-//        imageView.setImageBitmap(bitmap);
+        Bitmap bitmap = _renderer.render(getApplicationContext());
+
+        ImageView imageView = findViewById(R.id.imageClock);
+
+        imageView.setImageBitmap(bitmap);
     }
 
     private void continentSelected() {

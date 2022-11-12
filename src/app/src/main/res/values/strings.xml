@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Word Clock</string>
-    <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
+    <string name="app_widget_description">Elegant clock showing the time in words</string>
     <string name="word_clock">Word Clock</string>
     <string name="notification_text">Nothing to see here... just updating your clock widget</string>
     <string name="word_clock_preview">Word Clock Preview</string>

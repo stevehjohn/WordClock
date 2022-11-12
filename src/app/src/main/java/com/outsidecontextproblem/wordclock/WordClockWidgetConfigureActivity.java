@@ -5,16 +5,20 @@ import android.app.ActivityManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.outsidecontextproblem.wordclock.databinding.WordClockWidgetConfigureBinding;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -31,17 +35,25 @@ public class WordClockWidgetConfigureActivity extends Activity {
 
     private Settings _settings;
 
+    @SuppressWarnings("FieldCanBeLocal")
+    private ClockElementConfigurator.OnClockElementConfiguratorChangeListener _elementListener;
+
     private final View.OnClickListener _addOnClickListener = view -> {
         final Context context = WordClockWidgetConfigureActivity.this;
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         WordClockWidget.updateAppWidget(context, appWidgetManager, _appWidgetId, _settings);
 
-        //_settings.saveSettings(context);
+        _settings.saveSettings(context);
 
         Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId);
         setResult(RESULT_OK, resultValue);
+        finish();
+    };
+
+    private final View.OnClickListener _cancelOnClickListener = view -> {
+        setResult(RESULT_CANCELED);
         finish();
     };
 
@@ -54,6 +66,7 @@ public class WordClockWidgetConfigureActivity extends Activity {
         _binding = WordClockWidgetConfigureBinding.inflate(getLayoutInflater());
         setContentView(_binding.getRoot());
         _binding.buttonAdd.setOnClickListener(_addOnClickListener);
+        _binding.buttonCancel.setOnClickListener(_cancelOnClickListener);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -87,6 +100,75 @@ public class WordClockWidgetConfigureActivity extends Activity {
         }
 
         configureTimezones(context);
+
+        applySettingsToView(context);
+
+        _elementListener = this::onElementChanged;
+
+        ClockElementConfigurator clockElementConfigurator = findViewById(R.id.litText);
+        clockElementConfigurator.setOnClockElementConfiguratorChangeListener(_elementListener);
+
+        clockElementConfigurator = findViewById(R.id.backgroundText);
+        clockElementConfigurator.setOnClockElementConfiguratorChangeListener(_elementListener);
+    }
+
+    private void onElementChanged() {
+        updatePaints();
+
+        updatePreview();
+    }
+
+    private void updatePaints() {
+        //_batteryClockRenderer.updateFromSettings(_settings);
+
+        ClockElementConfigurator configurator = findViewById(R.id.litText);
+        updateSettings(_settings.getForegroundSettings(), configurator);
+
+        configurator = findViewById(R.id.backgroundText);
+        updateSettings(_settings.getBackgroundSettings(), configurator);
+    }
+
+    private void updateSettings(ElementSettings settings, ClockElementConfigurator configurator) {
+        settings.setOpacity(configurator.getOpacity());
+        settings.setRed(configurator.getRed());
+        settings.setGreen(configurator.getGreen());
+        settings.setBlue(configurator.getBlue());
+    }
+
+    private void applySettingsToView(Context context) {
+        _settings.loadSettings(context);
+
+        configureElement(findViewById(R.id.litText), _settings.getForegroundSettings());
+        configureElement(findViewById(R.id.backgroundText), _settings.getBackgroundSettings());
+
+        updatePaints();
+
+        updatePreview();
+
+        String[] timezone = _settings.getTimeZone().split("/");
+
+        Spinner continentSpinner = findViewById(R.id.spinContinent);
+        @SuppressWarnings("unchecked")
+        ArrayAdapter<String> continentAdapter = (ArrayAdapter<String>) continentSpinner.getAdapter();
+        int index = continentAdapter.getPosition(timezone[0]);
+        continentSpinner.setSelection(index);
+
+        if (timezone.length > 1) {
+            Spinner locationSpinner = findViewById(R.id.spinLocation);
+            @SuppressWarnings("unchecked")
+            ArrayAdapter<String> locationAdapter = (ArrayAdapter<String>) locationSpinner.getAdapter();
+            index = locationAdapter.getPosition(timezone[0]);
+            locationSpinner.setSelection(index);
+        }
+    }
+
+    private void configureElement(ClockElementConfigurator configurator, ElementSettings settings) {
+        configurator.setOpacity(settings.getOpacity());
+        configurator.setRed(settings.getRed());
+        configurator.setGreen(settings.getGreen());
+        configurator.setBlue(settings.getBlue());
+
+        //_batteryClockRenderer.updateFromSettings(_settings);
     }
 
     private void configureTimezones(Context context) {
@@ -150,6 +232,28 @@ public class WordClockWidgetConfigureActivity extends Activity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+    }
+
+    private void updatePreview() {
+//        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(_settings.getTimeZone()));
+//
+//        int second = -1;
+//        if (Settings.getUpdateSeconds()) {
+//            second = calendar.get(Calendar.SECOND);
+//        }
+//
+//        int minute = calendar.get(Calendar.MINUTE);
+//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//        int dayOfWeek = (((calendar.get(Calendar.DAY_OF_WEEK) - 2) + 7) % 7);
+//
+//        BatteryManager batteryManager = (BatteryManager) getApplicationContext().getSystemService(Context.BATTERY_SERVICE);
+//        int level = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+//
+//        Bitmap bitmap = _batteryClockRenderer.render(level, hour, minute, second, dayOfWeek, _settings.getLabel());
+//
+//        ImageView imageView = findViewById(R.id.imageClock);
+//
+//        imageView.setImageBitmap(bitmap);
     }
 
     private void continentSelected() {

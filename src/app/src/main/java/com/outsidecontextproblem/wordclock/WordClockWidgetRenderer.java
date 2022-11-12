@@ -84,6 +84,10 @@ public class WordClockWidgetRenderer {
         updatePaint(_backgroundTextPaint, settings.getBackgroundSettings());
         updatePaint(_foregroundTextPaint, settings.getForegroundSettings());
 
+        ElementSettings shadow = settings.getForegroundSettings();
+
+        _foregroundTextPaint.setShadowLayer(16f, 0, 0, Color.argb(shadow.getOpacity() * 5, shadow.getRed() * 5, shadow.getGreen() * 5, shadow.getBlue() * 5));
+
         _imageId = settings.getImageId();
     }
 

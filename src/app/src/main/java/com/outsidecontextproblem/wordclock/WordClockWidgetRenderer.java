@@ -31,6 +31,8 @@ public class WordClockWidgetRenderer {
     private final Paint _backgroundTextPaint;
     private final Paint _foregroundTextPaint;
 
+    private long _imageId;
+
     public WordClockWidgetRenderer() {
         Log.i(this.getClass().getName(), "Constructing renderer.");
 
@@ -50,6 +52,8 @@ public class WordClockWidgetRenderer {
         if (_typeface != null) {
             _foregroundTextPaint.setTypeface(_typeface);
         }
+
+        _imageId = R.drawable.background_2;
     }
 
     public Bitmap render(Context context, TimeZone timeZone) {
@@ -59,7 +63,7 @@ public class WordClockWidgetRenderer {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable = true;
         options.inScaled = false;
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.background_1, options);
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), (int) _imageId, options);
         Canvas canvas = new Canvas(bitmap);
 
         int height = bitmap.getHeight();
@@ -79,6 +83,8 @@ public class WordClockWidgetRenderer {
     public void updateFromSettings(Settings settings) {
         updatePaint(_backgroundTextPaint, settings.getBackgroundSettings());
         updatePaint(_foregroundTextPaint, settings.getForegroundSettings());
+
+        _imageId = settings.getImageId();
     }
 
     private void updatePaint(Paint paint, ElementSettings settings) {

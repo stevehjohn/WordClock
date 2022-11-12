@@ -13,6 +13,7 @@ public class Settings {
     private static final String TIMEZONE = "Timezone";
     private static final String FOREGROUND = "Foreground";
     private static final String BACKGROUND = "Background";
+    private static final String IMAGEID = "ImageId";
 
     private String _timeZone;
 
@@ -23,6 +24,12 @@ public class Settings {
     public void setTimeZone(String timeZone) {
         _timeZone = timeZone;
     }
+
+    private long _imageId;
+
+    public long getImageId() { return _imageId; }
+
+    public void setImageId(long imageId) { _imageId = imageId; }
 
     private final ElementSettings _foregroundSettings;
     private final ElementSettings _backgroundSettings;
@@ -43,12 +50,15 @@ public class Settings {
         _backgroundSettings = new ElementSettings(appWidgetId,16, 0, 0, 0);
 
         _timeZone = TimeZone.getDefault().getID();
+
+        _imageId = R.drawable.background_2;
     }
 
     @SuppressLint("DefaultLocale")
     public void loadSettings(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCES_NAME, 0);
         _timeZone = prefs.getString(String.format("%s.%d", TIMEZONE, _appWidgetId), TimeZone.getDefault().getID());
+        _imageId = prefs.getLong(String.format("%s.%d", IMAGEID, _appWidgetId), R.drawable.background_2);
 
         _foregroundSettings.loadSettings(context, FOREGROUND);
         _backgroundSettings.loadSettings(context, BACKGROUND);
@@ -58,6 +68,7 @@ public class Settings {
     public void saveSettings(Context context) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFERENCES_NAME, 0).edit();
         prefs.putString(String.format("%s.%d", TIMEZONE, _appWidgetId), _timeZone);
+        prefs.putLong(String.format("%s.%d", IMAGEID, _appWidgetId), _imageId);
         prefs.apply();
 
         _foregroundSettings.saveSettings(context, FOREGROUND);
@@ -68,6 +79,7 @@ public class Settings {
     public void deleteSettings(Context context) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFERENCES_NAME, 0).edit();
         prefs.remove(String.format("%s.%d", TIMEZONE, _appWidgetId));
+        prefs.remove(String.format("%s.%d", IMAGEID, _appWidgetId));
         prefs.apply();
 
         _foregroundSettings.deleteSettings(context, FOREGROUND);

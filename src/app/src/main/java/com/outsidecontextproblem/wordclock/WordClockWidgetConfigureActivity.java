@@ -176,6 +176,12 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
         String tag = (String) background.getTag();
 
         long resourceId = getApplicationContext().getResources().getIdentifier(String.format("background_%s", tag), "drawable", getApplicationContext().getPackageName());
+
+        _settings.setImageId(resourceId);
+
+        _renderer.updateFromSettings(_settings);
+
+        updatePreview();
     }
 
     private void onElementChanged() {

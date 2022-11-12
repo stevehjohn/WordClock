@@ -79,6 +79,8 @@ public class WordClockWidgetRenderer {
     }
 
     private void updatePaint(Paint paint, ElementSettings settings) {
+        Log.i(this.getClass().getName(), "Updating paints.");
+
         paint.setARGB(settings.getOpacity() * 5, settings.getRed() * 5, settings.getGreen() * 5, settings.getBlue() * 5);
     }
 

@@ -110,7 +110,12 @@ public class WordClockWidget extends AppWidgetProvider {
             timeZone = TimeZone.getDefault();
         }
 
-        WordClockWidgetRenderer renderer = new WordClockWidgetRenderer();
+        WordClockWidgetRenderer renderer = _renderers.get(appWidgetId);
+        if (renderer == null) {
+            Log.w(WordClockWidget.class.getName(), "No renderer found, using default.");
+
+            renderer = new WordClockWidgetRenderer();
+        }
 
         Bitmap bitmap = renderer.render(context, timeZone);
 

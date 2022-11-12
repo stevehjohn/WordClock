@@ -44,13 +44,15 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
     private final Handler _handler = new Handler();
 
     private final View.OnClickListener _addOnClickListener = view -> {
+        Log.i(this.getClass().getName(), "Done clicked.");
+
         _handler.removeCallbacks(this);
         final Context context = WordClockWidgetConfigureActivity.this;
 
+        _settings.saveSettings(context);
+
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         WordClockWidget.updateAppWidget(context, appWidgetManager, _appWidgetId, _settings);
-
-        _settings.saveSettings(context);
 
         Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId);

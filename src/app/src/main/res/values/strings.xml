@@ -6,4 +6,9 @@
     <string name="app_widget_description">This is an app widget description</string>
     <string name="word_clock">Word Clock</string>
     <string name="notification_text">Nothing to see here... just updating your clock widget</string>
+    <string name="word_clock_preview">Word Clock Preview</string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
+    <string name="colour">Colour</string>
+    <string name="opacity">Opacity</string>
 </resources>

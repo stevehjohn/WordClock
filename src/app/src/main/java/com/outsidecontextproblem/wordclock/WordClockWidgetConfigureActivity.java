@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -19,7 +18,6 @@ import android.widget.Spinner;
 import com.outsidecontextproblem.wordclock.databinding.WordClockWidgetConfigureBinding;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -46,6 +44,7 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
     private final Handler _handler = new Handler();
 
     private final View.OnClickListener _addOnClickListener = view -> {
+        _handler.removeCallbacks(this);
         final Context context = WordClockWidgetConfigureActivity.this;
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -60,9 +59,26 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
     };
 
     private final View.OnClickListener _cancelOnClickListener = view -> {
+        _handler.removeCallbacks(this);
         setResult(RESULT_CANCELED);
         finish();
     };
+
+    @Override
+    public void onBackPressed() {
+        Log.i(WordClockWidgetConfigureActivity.class.getName(), "Back pressed.");
+
+        super.onBackPressed();
+        _handler.removeCallbacks(this);
+    }
+
+    @Override
+    protected void onStop() {
+        Log.i(WordClockWidgetConfigureActivity.class.getName(), "Stopped.");
+
+        _handler.removeCallbacks(this);
+        super.onStop();
+    }
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -87,10 +103,6 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
         }
 
         Context context = getApplicationContext();
-
-        if (WordClockWidgetRenderer._typeface == null) {
-            WordClockWidgetRenderer._typeface = context.getResources().getFont(R.font.roboto);
-        }
 
         if (WordClockWidgetRenderer._typeface == null) {
             WordClockWidgetRenderer._typeface = context.getResources().getFont(R.font.roboto);
@@ -257,7 +269,7 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
     }
 
     private void updatePreview() {
-        Bitmap bitmap = _renderer.render(getApplicationContext());
+        Bitmap bitmap = _renderer.render(getApplicationContext(), TimeZone.getDefault());
 
         ImageView imageView = findViewById(R.id.imageClock);
 

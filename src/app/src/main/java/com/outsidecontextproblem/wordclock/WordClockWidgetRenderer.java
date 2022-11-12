@@ -49,7 +49,7 @@ public class WordClockWidgetRenderer {
         }
     }
 
-    public Bitmap render(Context context) {
+    public Bitmap render(Context context, TimeZone timeZone) {
         Log.i(WordClockWidgetRenderer.class.getName(), "render()");
 
         // TODO: Cache?
@@ -68,7 +68,7 @@ public class WordClockWidgetRenderer {
 
         renderText(bitmap, canvas);
 
-        renderTime(bitmap, canvas);
+        renderTime(bitmap, canvas, timeZone);
 
         return bitmap;
     }
@@ -91,11 +91,11 @@ public class WordClockWidgetRenderer {
         }
     }
 
-    private void renderTime(Bitmap drawable, Canvas canvas) {
+    private void renderTime(Bitmap drawable, Canvas canvas, TimeZone timeZone) {
         int midX = drawable.getWidth() / 2;
         int height = drawable.getHeight();
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        Calendar calendar = Calendar.getInstance(timeZone);
 
         int minute = calendar.get(Calendar.MINUTE);
 

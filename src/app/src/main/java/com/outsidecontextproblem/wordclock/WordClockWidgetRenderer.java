@@ -130,8 +130,13 @@ public class WordClockWidgetRenderer {
 
         int hour = calendar.get(Calendar.HOUR);
 
+        if (minute >= 35) {
+            hour++;
+        }
+
         switch (hour) {
             case 0:
+            case 12:
                 canvas.drawText("     TWELVE", midX, (height / 11f) * 9 + (height / 42f), _foregroundTextPaint);
                 break;
             case 1:

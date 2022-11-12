@@ -2,6 +2,7 @@ package com.outsidecontextproblem.wordclock;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,16 +19,20 @@ public class WordClockWidgetConfigureActivity extends Activity {
         super();
     }
 
+    int _appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
+    private Settings _settings;
+
     private final View.OnClickListener _addOnClickListener = view -> {
         final Context context = WordClockWidgetConfigureActivity.this;
 
-//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-//        BatteryClockWidget.updateAppWidget(context, appWidgetManager, _appWidgetId, _settings);
-//
-//        _settings.saveSettings(context);
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        WordClockWidget.updateAppWidget(context, appWidgetManager, _appWidgetId, _settings);
+
+        //_settings.saveSettings(context);
 
         Intent resultValue = new Intent();
-//        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId);
+        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId);
         setResult(RESULT_OK, resultValue);
         finish();
     };

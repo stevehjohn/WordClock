@@ -51,7 +51,7 @@ public class WordClockWidgetService extends Service implements Runnable, Display
         notificationManager.createNotificationChannel(notificationChannel);
 
         Notification.Builder notificationBuilder = new Notification.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setContentText("BALLS!")
+                .setContentText(getString(R.string.notification_text))
                 .setSmallIcon(R.drawable.notification);
 
         startForeground(NOTIFICATION_ID, notificationBuilder.build());

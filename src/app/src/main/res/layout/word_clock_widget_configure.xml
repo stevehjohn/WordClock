@@ -30,7 +30,7 @@
                 android:id="@+id/textTimezone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Timezone"
+                android:text="@string/timezone"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -77,9 +77,108 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/litText" />
 
+            <TextView
+                android:id="@+id/textBackgroundTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/background_image"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/backgroundText" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textBackgroundTitle"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp">
+
+                <TableRow>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".25"
+                        android:src="@drawable/background_1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:padding="2dp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".25"
+                        android:src="@drawable/background_2"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:padding="2dp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".25"
+                        android:src="@drawable/background_3"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:padding="2dp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".25"
+                        android:src="@drawable/background_4"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:padding="2dp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".25"
+                        android:src="@drawable/background_1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:padding="2dp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".25"
+                        android:src="@drawable/background_2"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:padding="2dp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".25"
+                        android:src="@drawable/background_1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:padding="2dp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".25"
+                        android:src="@drawable/background_2"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:padding="2dp" />
+
+                </TableRow>
+
+            </TableLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

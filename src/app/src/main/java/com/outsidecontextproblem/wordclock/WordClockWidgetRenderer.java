@@ -32,12 +32,15 @@ public class WordClockWidgetRenderer {
     private final Paint _foregroundTextPaint;
 
     public WordClockWidgetRenderer() {
+        Log.i(this.getClass().getName(), "Constructing renderer.");
 
         _backgroundTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         _backgroundTextPaint.setARGB(80, 0, 0, 0);
         _backgroundTextPaint.setTextAlign(Paint.Align.CENTER);
         if (_typeface != null) {
             _backgroundTextPaint.setTypeface(_typeface);
+        } else {
+            Log.i(this.getClass().getName(), "Typeface is null.");
         }
 
         _foregroundTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -56,7 +59,7 @@ public class WordClockWidgetRenderer {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable = true;
         options.inScaled = false;
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.background_2, options);
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.background_1, options);
         Canvas canvas = new Canvas(bitmap);
 
         int height = bitmap.getHeight();

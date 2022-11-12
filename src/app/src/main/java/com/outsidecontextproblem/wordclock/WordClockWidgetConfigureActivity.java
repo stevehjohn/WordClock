@@ -28,8 +28,6 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
 
     public WordClockWidgetConfigureActivity() {
         super();
-
-        _renderer = new WordClockWidgetRenderer();
     }
 
     int _appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -39,7 +37,7 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
     @SuppressWarnings("FieldCanBeLocal")
     private ClockElementConfigurator.OnClockElementConfiguratorChangeListener _elementListener;
 
-    private final WordClockWidgetRenderer _renderer;
+    private WordClockWidgetRenderer _renderer;
 
     private final Handler _handler = new Handler();
 
@@ -109,6 +107,8 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
         if (WordClockWidgetRenderer._typeface == null) {
             WordClockWidgetRenderer._typeface = context.getResources().getFont(R.font.roboto);
         }
+
+        _renderer = new WordClockWidgetRenderer();
 
         _settings = new Settings(_appWidgetId);
 

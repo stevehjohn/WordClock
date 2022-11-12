@@ -10,4 +10,6 @@
     <string name="done">Done</string>
     <string name="colour">Colour</string>
     <string name="opacity">Opacity</string>
+    <string name="background_image">Background Image</string>
+    <string name="timezone">Timezone</string>
 </resources>

@@ -47,6 +47,17 @@ public class WordClockWidgetConfigureActivity extends Activity {
         setContentView(_binding.getRoot());
         _binding.addButton.setOnClickListener(_addOnClickListener);
 
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            _appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        }
+
+        if (_appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+            finish();
+            return;
+        }
+
         Context context = getApplicationContext();
 
         if (WordClockWidgetRenderer._typeface == null) {

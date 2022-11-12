@@ -56,14 +56,26 @@
             <com.outsidecontextproblem.wordclock.ClockElementConfigurator
                 app:elementTitle="Lit Text Colour"
                 app:showControlTitle="true"
-                app:redComponent="22"
-                app:greenComponent="20"
+                app:redComponent="51"
+                app:greenComponent="51"
                 app:blueComponent="51"
                 app:colourOpacity="51"
-                android:id="@+id/configuratorLabel"
+                android:id="@+id/litText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/spinLocation" />
+
+            <com.outsidecontextproblem.wordclock.ClockElementConfigurator
+                app:elementTitle="Background Text Colour"
+                app:showControlTitle="true"
+                app:redComponent="0"
+                app:greenComponent="0"
+                app:blueComponent="0"
+                app:colourOpacity="16"
+                android:id="@+id/backgroundText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/litText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

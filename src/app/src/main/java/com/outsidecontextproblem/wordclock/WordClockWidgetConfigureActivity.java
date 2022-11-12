@@ -20,6 +20,7 @@ import java.util.TimeZone;
 
 public class WordClockWidgetConfigureActivity extends Activity {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private WordClockWidgetConfigureBinding _binding;
 
     public WordClockWidgetConfigureActivity() {
@@ -70,6 +71,8 @@ public class WordClockWidgetConfigureActivity extends Activity {
         if (WordClockWidgetRenderer._typeface == null) {
             WordClockWidgetRenderer._typeface = context.getResources().getFont(R.font.roboto);
         }
+
+        _settings = new Settings(_appWidgetId);
 
         WordClockWidgetService serviceInstance = WordClockWidgetService.getInstance();
         if (serviceInstance != null) {
@@ -127,7 +130,7 @@ public class WordClockWidgetConfigureActivity extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, continents);
         spinner.setAdapter(adapter);
 
-        String[] timezone = { "" }; //_settings.getTimeZone().split("/");
+        String[] timezone = _settings.getTimeZone().split("/");
 
         int index = continents.indexOf(timezone[0]);
 
@@ -167,7 +170,7 @@ public class WordClockWidgetConfigureActivity extends Activity {
         if (locations.size() == 0) {
             locations.add(" - ");
 
-            //_settings.setTimeZone(selection);
+            _settings.setTimeZone(selection);
         }
 
         Spinner locationSpinner = findViewById(R.id.spinLocation);
@@ -175,7 +178,7 @@ public class WordClockWidgetConfigureActivity extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, locations);
         locationSpinner.setAdapter(adapter);
 
-        String[] timezone = { "" }; //_settings.getTimeZone().split("/");
+        String[] timezone = _settings.getTimeZone().split("/");
 
         if (timezone.length > 1) {
             int index = locations.indexOf(timezone[1]);
@@ -207,7 +210,7 @@ public class WordClockWidgetConfigureActivity extends Activity {
         String location = (String) locationSpinner.getSelectedItem();
 
         if (! location.equals(" - ")) {
-            //_settings.setTimeZone(String.format("%s/%s", continent, location));
+            _settings.setTimeZone(String.format("%s/%s", continent, location));
         }
     }
     private boolean serviceIsRunning(Context context) {

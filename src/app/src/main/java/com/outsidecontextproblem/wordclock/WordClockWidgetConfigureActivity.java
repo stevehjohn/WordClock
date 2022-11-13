@@ -41,6 +41,8 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
 
     private final Handler _handler = new Handler();
 
+    private final int IMAGE_REQUEST = 1234;
+
     private final View.OnClickListener _addOnClickListener = view -> {
         Log.i(this.getClass().getName(), "Done clicked.");
 
@@ -78,6 +80,15 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
 
         _handler.removeCallbacks(this);
         super.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK) {
+            Log.i(this.getClass().getName(), data.getData().toString());
+        }
     }
 
     @Override
@@ -176,7 +187,7 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
 
     private void selectCustomImage() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickPhoto , 1234);
+        startActivityForResult(pickPhoto , IMAGE_REQUEST);
     }
 
     private void onBackgroundSelected(View background) {

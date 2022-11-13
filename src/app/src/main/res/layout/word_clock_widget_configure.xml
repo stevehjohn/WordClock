@@ -91,7 +91,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textBackgroundTitle"
                 android:paddingLeft="20dp"
-                android:paddingTop="20dp">
+                android:paddingTop="20dp"
+                android:id="@+id/tableBackgrounds">
 
                 <TableRow>
 
@@ -190,6 +191,16 @@
                 </TableRow>
 
             </TableLayout>
+
+            <Button
+                android:id="@+id/buttonSelect"
+                android:text="@string/custom"
+                android:padding="0dp"
+                android:textSize="24sp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/tableBackgrounds"
+                android:layout_marginLeft="20dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

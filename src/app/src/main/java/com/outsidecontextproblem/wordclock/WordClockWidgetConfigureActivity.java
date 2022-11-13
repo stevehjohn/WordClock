@@ -124,6 +124,8 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
             context.startForegroundService(serviceIntent);
         }
 
+        _binding.buttonSelect.setOnClickListener((view -> selectCustomImage()));
+
         configureTimezones(context);
 
         applySettingsToView(context);
@@ -170,6 +172,11 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
         updatePreview();
 
         _handler.postDelayed(this, 1_000);
+    }
+
+    private void selectCustomImage() {
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhoto , 1234);
     }
 
     private void onBackgroundSelected(View background) {

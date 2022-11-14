@@ -3,6 +3,7 @@ package com.outsidecontextproblem.wordclock;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 import java.util.TimeZone;
 
@@ -30,6 +31,12 @@ public class Settings {
     public long getImageId() { return _imageId; }
 
     public void setImageId(long imageId) { _imageId = imageId; }
+
+    private Uri _customImageUri;
+
+    public Uri getCustomImageUri() { return _customImageUri; }
+
+    public void setCustomImageUri(Uri customImageUri) { _customImageUri = customImageUri; }
 
     private final ElementSettings _foregroundSettings;
     private final ElementSettings _backgroundSettings;

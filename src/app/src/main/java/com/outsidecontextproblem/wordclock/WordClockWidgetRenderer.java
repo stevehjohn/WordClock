@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ImageDecoder;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -32,6 +34,7 @@ public class WordClockWidgetRenderer {
     private final Paint _foregroundTextPaint;
 
     private long _imageId;
+    private Uri _customImageUri;
 
     public WordClockWidgetRenderer() {
         Log.i(this.getClass().getName(), "Constructing renderer.");
@@ -63,7 +66,14 @@ public class WordClockWidgetRenderer {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable = true;
         options.inScaled = false;
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), (int) _imageId, options);
+        options.outWidth = 500;
+        options.outHeight = 500;
+        Bitmap bitmap = null;
+        if (_customImageUri != null) {
+            bitmap = BitmapFactory.decodeResource(context.getResources(), (int) _imageId, options);
+        } else {
+            bitmap = BitmapFactory.decodeResource(context.getResources(), (int) _imageId, options);
+        }
         Canvas canvas = new Canvas(bitmap);
 
         int height = bitmap.getHeight();
@@ -89,6 +99,7 @@ public class WordClockWidgetRenderer {
         _foregroundTextPaint.setShadowLayer(16f, 0, 0, Color.argb(shadow.getOpacity() * 5, shadow.getRed() * 5, shadow.getGreen() * 5, shadow.getBlue() * 5));
 
         _imageId = settings.getImageId();
+        _customImageUri = settings.getCustomImageUri();
     }
 
     private void updatePaint(Paint paint, ElementSettings settings) {

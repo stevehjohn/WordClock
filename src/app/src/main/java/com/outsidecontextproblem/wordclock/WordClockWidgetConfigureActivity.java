@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -87,7 +88,12 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK) {
-            Log.i(this.getClass().getName(), data.getData().toString());
+            // TODO: Take a copy and maybe change the setting to an absolute file path.
+            _settings.setCustomImageUri(data.getData());
+
+            _renderer.updateFromSettings(_settings);
+
+            updatePreview();
         }
     }
 
@@ -195,6 +201,7 @@ public class WordClockWidgetConfigureActivity extends Activity implements Runnab
 
         long resourceId = getApplicationContext().getResources().getIdentifier(String.format("background_%s", tag), "drawable", getApplicationContext().getPackageName());
 
+        _settings.setCustomImageUri(null);
         _settings.setImageId(resourceId);
 
         _renderer.updateFromSettings(_settings);
